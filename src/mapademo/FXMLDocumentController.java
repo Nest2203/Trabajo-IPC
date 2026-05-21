@@ -37,9 +37,12 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -64,6 +67,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -155,6 +159,10 @@ public class FXMLDocumentController implements Initializable {
     private Label mousePosition;
     @FXML
     private SplitPane splitPane;
+    @FXML
+    private MenuItem abrirPerfil;
+    @FXML
+    private MenuItem botonSalir;
  
 
     // =========================================================
@@ -445,7 +453,6 @@ public class FXMLDocumentController implements Initializable {
         // ── Carga del mapa inicial ─────────────────────────────────────
         // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
-        cargarPantallaActividades();
     }
 
     // =========================================================
@@ -619,21 +626,39 @@ public class FXMLDocumentController implements Initializable {
         circle.setCenterY(y);
         mapPane.getChildren().add(circle); // Se añade sobre el mapa como cualquier nodo
     }
+
     @FXML
-private javafx.scene.layout.BorderPane principalBorderPane; 
-    
-private void cargarPantallaActividades() {
+    private void pulsaAbrirPerfil(ActionEvent event) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("ActivitiesView.fxml"));
-            javafx.scene.Parent vistaActividades = loader.load();
-            if (splitPane != null) {
-                splitPane.getItems().add(vistaActividades);
-            } else {
-                System.out.println("Error: 'splitPane' es null.");
-            }
-        } catch (java.io.IOException e) {
-            System.out.println("Error al cargar la vista de actividades: " + e.getMessage());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Perfil_FXML.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Editar Perfil");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    @FXML
+    private void pulsaSalir(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login_FXML.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) map_scrollpane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login - Running La Safor");
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }
