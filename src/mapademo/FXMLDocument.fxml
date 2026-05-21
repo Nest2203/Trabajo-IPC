@@ -18,8 +18,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
    <center>
       <VBox prefHeight="556.0" prefWidth="853.0" stylesheets="@../resources/estilos.css">
          <children>
@@ -51,7 +50,9 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#about" text="Acerca de" />
+                    <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+                        <MenuItem fx:id="abrirPerfil" mnemonicParsing="false" onAction="#pulsaAbrirPerfil" text="Perfil" />
+                        <MenuItem fx:id="botonSalir" mnemonicParsing="false" onAction="#pulsaSalir" text="Salir" />
                   </items>
                 </Menu>
               </menus>
