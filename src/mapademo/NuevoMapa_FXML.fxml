@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="450.0" prefWidth="420.0" spacing="15.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.NuevoMapaController">
+   <children>
+      <Label text="Añadir Nuevo Mapa">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      
+      <Label text="⚠️ ADVERTENCIA: No aproximes ni te inventes las coordenadas. Usa valores exactos para que la ruta GPS cuadre con los píxeles de la imagen." textAlignment="CENTER" textFill="RED" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </Label>
+      
+      <GridPane hgap="10.0" vgap="15.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="230.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Nombre:" />
+            <TextField fx:id="nombreTextField" promptText="Ej: Mapa Montaña" GridPane.columnIndex="1" />
+            
+            <Label text="Imagen:" GridPane.rowIndex="1" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="seleccionarImagenBtn" mnemonicParsing="false" onAction="#seleccionarImagen" text="Buscar..." />
+                  <Label fx:id="imagenRutaLabel" text="Ninguna" textFill="GREY" />
+               </children>
+            </HBox>
+            
+            <Label text="Latitud Mínima:" GridPane.rowIndex="2" />
+            <TextField fx:id="latMinTextField" promptText="-90 a 90" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            
+            <Label text="Latitud Máxima:" GridPane.rowIndex="3" />
+            <TextField fx:id="latMaxTextField" promptText="-90 a 90" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            
+            <Label text="Longitud Mínima:" GridPane.rowIndex="4" />
+            <TextField fx:id="lonMinTextField" promptText="-180 a 180" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            
+            <Label text="Longitud Máxima:" GridPane.rowIndex="5" />
+            <TextField fx:id="lonMaxTextField" promptText="-180 a 180" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <HBox alignment="CENTER" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="guardarBtn" mnemonicParsing="false" onAction="#guardarMapa" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Guardar Mapa" />
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
