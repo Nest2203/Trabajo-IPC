@@ -82,6 +82,9 @@ import javafx.util.Duration;
  */
 public class FXMLDocumentController implements Initializable {
 
+    private upv.ipc.sportlib.MapProjection proj;
+    private upv.ipc.sportlib.Activity actividadActual;
+
     // =========================================================
     //  ESTRUCTURA DE NODOS PARA ZOOM
     // =========================================================
@@ -518,59 +521,32 @@ public class FXMLDocumentController implements Initializable {
      * @param y coordenada Y del clic en el sistema local del mapPane
      */
     private void addPoi(double x, double y) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AnotacionesDialog_FXML.fxml"));
+            Parent root = loader.load();
+            AnotacionesDialogController controlador = loader.getController();
 
-        // ── Construcción del diálogo personalizado ────────────────────
-        Dialog<Poi> poiDialog = new Dialog<>();
-        poiDialog.setTitle("Nuevo POI");
-        poiDialog.setHeaderText("Introduce un nuevo POI");
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Añadir Anotación");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
 
-        // Personalizamos el icono de la ventana del diálogo
-        Stage dialogStage = (Stage) poiDialog.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(
-            new Image(getClass().getResourceAsStream("/resources/logo.png"))
-        );
-
-        // Botones del diálogo: Aceptar y Cancelar
-        ButtonType okButton = new ButtonType("Aceptar", ButtonBar.ButtonData.OK_DONE);
-        poiDialog.getDialogPane().getButtonTypes().addAll(okButton, ButtonType.CANCEL);
-
-        // Campo de texto para el nombre del POI
-        TextField nameField = new TextField();
-        nameField.setPromptText("Nombre del POI");
-
-        // Layout del contenido del diálogo (VBox con espaciado de 10 px)
-        VBox vbox = new VBox(10, new Label("Nombre:"), nameField);
-        poiDialog.getDialogPane().setContent(vbox);
-
-        // ResultConverter: transforma la selección del botón en un objeto Poi.
-        // FIX 1: ya no usamos coordenadas provisionales (0,0); pasamos (x,y)
-        // directamente al constructor para que el modelo sea coherente desde el inicio.
-        poiDialog.setResultConverter(dialogButton -> {
-            if (dialogButton == okButton) {
-                return new Poi(nameField.getText().trim(), x, y);
+            if (controlador.isGuardado()) {
+                upv.ipc.sportlib.GeoPoint geo = proj != null ? proj.unproject(x, y) : new upv.ipc.sportlib.GeoPoint(39.0, -0.3);
+                upv.ipc.sportlib.Annotation ann = new upv.ipc.sportlib.Annotation(controlador.getTipoFinalEnum(), controlador.getTextoFinal(), "red", 2.0, java.util.List.of(geo));
+                
+                if (actividadActual != null) {
+                    upv.ipc.sportlib.SportActivityApp.getInstance().addAnnotation(actividadActual, ann);
+                }
+                
+                javafx.scene.text.Text text = new javafx.scene.text.Text(ann.getText());
+                text.setX(x);
+                text.setY(y);
+                mapPane.getChildren().add(text);
             }
-            return null;
-        });
-
-        // Mostramos el diálogo y esperamos la respuesta del usuario
-        Optional<Poi> result = poiDialog.showAndWait();
-
-        if (result.isPresent()) {
-            Poi poi = result.get();
-
-            // FIX 1: confirmamos la posición como Point2D para compatibilidad
-            // con getPosition(), usando las mismas coordenadas (x, y).
-            poi.setPosition(new Point2D(x, y));
-
-            // Añadimos el POI al ListView (la CellFactory mostrará nombre y código)
-            map_listview.getItems().add(poi);
-
-            // FIX 1: usamos (x, y) tanto para el modelo como para el Text,
-            // garantizando que la etiqueta aparezca exactamente donde se hizo clic.
-            Text text = new Text(poi.getCode());
-            text.setX(x);
-            text.setY(y);
-            mapPane.getChildren().add(text);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -644,8 +620,41 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void pulsaAñadirMapa(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NuevoMapa_FXML.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Añadir Mapa");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void pulsaHistorial(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HistorialSesiones_FXML.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Historial de Sesiones");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void pulsaSalir(ActionEvent event) {
         try {
+            upv.ipc.sportlib.SportActivityApp.getInstance().logout();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login_FXML.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) map_scrollpane.getScene().getWindow();

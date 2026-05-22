@@ -52,6 +52,8 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
                         <MenuItem fx:id="abrirPerfil" mnemonicParsing="false" onAction="#pulsaAbrirPerfil" text="Perfil" />
+                        <MenuItem mnemonicParsing="false" onAction="#pulsaAñadirMapa" text="Añadir Mapa" />
+                        <MenuItem mnemonicParsing="false" onAction="#pulsaHistorial" text="Historial de Sesiones" />
                         <MenuItem fx:id="botonSalir" mnemonicParsing="false" onAction="#pulsaSalir" text="Salir" />
                   </items>
                 </Menu>
