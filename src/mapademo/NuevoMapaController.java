@@ -96,8 +96,7 @@ public class NuevoMapaController implements Initializable {
                 a.showAndWait();
                 return;
             }
-
-            // NUEVA COMPROBACIÓN: Rango de Longitud
+            
             if (loMin < -180 || loMax > 180) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setTitle("Rango inválido");
