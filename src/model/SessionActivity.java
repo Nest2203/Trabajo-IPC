@@ -19,15 +19,33 @@ public class SessionActivity {
         this.totalAscent.set(totalAscent);
     }
 
-    public String getName() { return name.get(); }
-    public void setName(String value) { name.set(value); }
-    public StringProperty nameProperty() { return name; }
+    public String getName() { 
+        return name.get(); 
+    }
+    public void setName(String value) { 
+        name.set(value); 
+    }
+    public StringProperty nameProperty() { 
+        return name; 
+    }
 
-    public double getDistance() { return distance.get(); }
-    public void setDistance(double value) { distance.set(value); }
-    public DoubleProperty distanceProperty() { return distance; }
+    public double getDistance() { 
+        return distance.get(); 
+    }
+    public void setDistance(double value) { 
+        distance.set(value); 
+    }
+    public DoubleProperty distanceProperty() {
+        return distance; 
+    }
 
-    public long getDuration() { return duration.get(); }
-    public void setDuration(long value) { duration.set(value); }
-    public LongProperty durationProperty() { return duration; }
+    public long getDuration() { 
+        return duration.get(); 
+    }
+    public void setDuration(long value) { 
+        duration.set(value); 
+    }
+    public LongProperty durationProperty() { 
+        return duration; 
+    }
 }
