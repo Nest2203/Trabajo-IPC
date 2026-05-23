@@ -667,7 +667,22 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-
+        @FXML
+private javafx.scene.layout.BorderPane principalBorderPane; 
+    
+private void cargarPantallaActividades() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("ActivitiesView.fxml"));
+            javafx.scene.Parent vistaActividades = loader.load();
+            if (splitPane != null) {
+                splitPane.getItems().add(vistaActividades);
+            } else {
+                System.out.println("Error: 'splitPane' es null.");
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error al cargar la vista de actividades: " + e.getMessage());
+        }
+    }
 
 
 }
