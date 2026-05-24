@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="450.0" prefWidth="420.0" spacing="15.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.NuevoMapaController">
+<VBox alignment="CENTER" prefHeight="450.0" prefWidth="420.0" spacing="15.0" styleClass="panel-borde" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.NuevoMapaController">
    <children>
-      <Label text="Añadir Nuevo Mapa">
+      <Label styleClass="titulo-pantalla" text="Añadir Nuevo Mapa">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -47,7 +47,7 @@
             <Label text="Imagen:" GridPane.rowIndex="1" />
             <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="seleccionarImagenBtn" mnemonicParsing="false" onAction="#seleccionarImagen" text="Buscar..." />
+                  <Button fx:id="seleccionarImagenBtn" mnemonicParsing="false" onAction="#seleccionarImagen" styleClass="boton-estandar" text="Buscar..." />
                   <Label fx:id="imagenRutaLabel" text="Ninguna" textFill="GREY" />
                </children>
             </HBox>
@@ -70,8 +70,8 @@
       </GridPane>
       <HBox alignment="CENTER" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <Button fx:id="guardarBtn" mnemonicParsing="false" onAction="#guardarMapa" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Guardar Mapa" />
+            <Button mnemonicParsing="false" onAction="#cancelar" styleClass="boton-estandar" text="Cancelar" />
+            <Button fx:id="guardarBtn" mnemonicParsing="false" onAction="#guardarMapa" styleClass="boton-estandar" text="Guardar Mapa" />
          </children>
          <VBox.margin>
             <Insets top="5.0" />

@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.ActivitiesViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.ActivitiesViewController">
    <children>
-      <Label text="HISTORIAL DE ACTIVIDADES">
+      <Label styleClass="titulo-pantalla" text="HISTORIAL DE ACTIVIDADES">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0" styleClass="panel-borde" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="columaNombre" prefWidth="180.00003373622894" text="Nombre de la Actividad" />
           <TableColumn fx:id="columnaDistancia" prefWidth="180.8000030517578" text="Distancia (km)" />
@@ -26,9 +26,9 @@
       </TableView>
       <HBox alignment="CENTER" prefHeight="29.0" prefWidth="579.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleImportar" text="Importar GPX" />
-            <Button mnemonicParsing="false" onAction="#handleRenombrar" text="Renombrar" />
-            <Button mnemonicParsing="false" onAction="#handleBorrar" text="Borrar" />
+            <Button mnemonicParsing="false" onAction="#handleImportar" styleClass="boton-estandar" text="Importar GPX" />
+            <Button mnemonicParsing="false" onAction="#handleRenombrar" styleClass="boton-estandar" text="Renombrar" />
+            <Button mnemonicParsing="false" onAction="#handleBorrar" styleClass="boton-estandar" text="Borrar" />
          </children>
       </HBox>
       <Label text="Label" />
@@ -48,6 +48,6 @@
       </VBox>
    </children>
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
 </VBox>

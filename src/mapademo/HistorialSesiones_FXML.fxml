@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.HistorialSesionesController">
+<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="600.0" spacing="10.0" styleClass="panel-borde" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.HistorialSesionesController">
    <children>
-      <Label text="Historial de Sesiones">
+      <Label styleClass="titulo-pantalla" text="Historial de Sesiones">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -17,7 +17,7 @@
          </VBox.margin>
       </Label>
       <ListView fx:id="sesionesListView" prefHeight="400.0" prefWidth="560.0" VBox.vgrow="ALWAYS" />
-      <Button mnemonicParsing="false" onAction="#cerrar" text="Cerrar">
+      <Button mnemonicParsing="false" onAction="#cerrar" styleClass="boton-estandar" text="Cerrar">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
