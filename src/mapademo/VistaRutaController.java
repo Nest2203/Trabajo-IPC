@@ -125,11 +125,11 @@ public class VistaRutaController implements Initializable {
                 }
             });
         }
-        SportActivityApp app = SportActivityApp.getInstance();
-        app.login("usuario", "password");
-        File gpxFile = new File("ruta.gpx");
-        if (gpxFile.exists()){ 
-           Activity activity = app.importActivity(gpxFile);
+    }
+        public void mostrarActividadEnMapa(Activity activity) {
+            if (activity == null) return;
+        
+         try{           
            if (lblDistancia != null) lblDistancia.setText(String.format("%.2f km", activity.getTotalDistance() / 1000.0));
            if (lblTiempo != null) lblTiempo.setText(activity.getDuration().toMinutes() + " min");
            if (lblDesnivelpos != null) lblDesnivelpos.setText("+" + String.format("%.0f m", activity.getElevationGain()));
@@ -185,7 +185,7 @@ public class VistaRutaController implements Initializable {
                     map_listview.setItems(listaPuntos);
 }
            
-           }else{
+           } catch (Exception e) {
             System.out.println("No se encontró el archivo 'ruta.gpx' en la raíz del proyecto. Cargando demo.");
             buildMap(new File("maps/upv.jpg"));
         }

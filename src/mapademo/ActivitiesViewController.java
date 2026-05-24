@@ -8,9 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +21,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import model.SessionActivity;
+import upv.ipc.sportlib.Activity;
+import upv.ipc.sportlib.SportActivityApp;
 
 public class ActivitiesViewController implements Initializable {
 
@@ -31,10 +36,11 @@ public class ActivitiesViewController implements Initializable {
     private Label DistanciaTtotal;
     @FXML
     private Label TiempoTotal;
-    @FXML
     private HBox miBarraError;
 
     private ObservableList<SessionActivity> listaActividades;
+    @FXML
+    private Button verActividad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +73,7 @@ public class ActivitiesViewController implements Initializable {
         if (f != null) {
             try {
                 SessionActivity act = model.GPX.parse(f);
+                SportActivityApp.getInstance().importActivity(f);
                 listaActividades.add(act);
                 actualizarEstadisticas();
                 if (miBarraError != null) {
@@ -144,5 +151,44 @@ public class ActivitiesViewController implements Initializable {
     
     private void handleActividadSeleccionada(SessionActivity actividad) {
         System.out.println("Actividad seleccionada en la tabla: " + actividad.getName());
+    }
+    
+    @FXML
+    private void abrirMapa(ActionEvent event) {
+        
+        SessionActivity actividadSeleccionada = tabla.getSelectionModel().getSelectedItem();
+      
+        if (actividadSeleccionada == null) {
+            System.out.println("Por favor, selecciona una actividad primero.");
+            return; 
+        }
+
+        try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("VistaRuta.fxml"));
+            Parent tuVista = loader.load();
+
+            
+            VistaRutaController tuControlador = loader.getController();
+            
+            
+            Activity actividadOficial = null;
+            for (Activity a : SportActivityApp.getInstance().getUserActivities()) {
+            if (a.getName().equals(actividadSeleccionada.getName())) {
+            actividadOficial = a;
+            break;
+        }
+    }
+    if (actividadOficial != null) {
+        tuControlador.mostrarActividadEnMapa(actividadOficial);
+    }
+            javafx.stage.Stage stage = (javafx.stage.Stage) tabla.getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(tuVista));
+            stage.show();
+
+        } catch (java.io.IOException e) {
+            System.out.println("Error al cargar la pestaña de la ruta: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
