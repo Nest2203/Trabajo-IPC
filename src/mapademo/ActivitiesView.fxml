@@ -26,7 +26,7 @@
       </TableView>
       <HBox alignment="CENTER" prefHeight="29.0" prefWidth="579.0" spacing="10.0">
          <children>
-            <Button fx:id="verActividad" mnemonicParsing="false" text="Ver Actividad" />
+            <Button fx:id="verActividad" mnemonicParsing="false" onAction="#abrirMapa" text="Ver Actividad" />
             <Button mnemonicParsing="false" onAction="#handleImportar" styleClass="boton-estandar" text="Importar GPX" />
             <Button mnemonicParsing="false" onAction="#handleRenombrar" styleClass="boton-estandar" text="Renombrar" />
             <Button mnemonicParsing="false" onAction="#handleBorrar" styleClass="boton-estandar" text="Borrar" />
