@@ -66,3 +66,27 @@ S17.642,20.762,13.558,20.762z";
 .map-pin .arrow-button .arrow {
     -fx-padding: 0;
 }
+
+/* Estilos basicos para las pantallas */
+.titulo-pantalla {
+    -fx-background-color: gray;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.panel-borde {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.boton-estandar {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.boton-estandar:hover {
+    -fx-background-color: #d0d0d0;
+}
