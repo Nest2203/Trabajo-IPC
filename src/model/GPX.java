@@ -60,11 +60,14 @@ public class GPX {
                     int fin = line.indexOf("</time>");
                     if (inicio > 5 && fin > inicio) {
                         String timeStr = line.substring(inicio, fin).trim();
-                        Instant t = Instant.parse(timeStr);
-                        if (firstTime == null) {
-                            firstTime = t;
+                        try {
+                            Instant t = Instant.parse(timeStr);
+                            if (firstTime == null) {
+                                firstTime = t;
+                            }
+                            lastTime = t;
+                        } catch (Exception ex) {
                         }
-                        lastTime = t;
                     }
                 }
             }
@@ -72,7 +75,7 @@ public class GPX {
             if (firstTime != null && lastTime != null) {
                 totalDuration = Duration.between(firstTime, lastTime).getSeconds();
             } else {
-                throw new Exception("El archivo no contiene marcas de tiempo válidas");
+                totalDuration = 0;
             }
 
         } catch (Exception e) {
