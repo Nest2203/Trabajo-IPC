@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -20,9 +19,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.NumberAxis?>
-
 
 <BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.VistaRutaController">
    <center>
@@ -30,22 +26,18 @@
          <children>
             <SplitPane fx:id="splitPane" dividerPositions="0.19699727024567792" VBox.vgrow="ALWAYS">
                <items>
-                  <ListView fx:id="map_listview"  prefHeight="399.0" prefWidth="87.0" />
+                  <ListView fx:id="map_listview" prefHeight="399.0" prefWidth="87.0" />
                   <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
                      <content>
-                        <Group>
+                        <Pane>
                            <children>
-                              <Pane>
-                                 <children>
-                                    <ImageView fx:id="imagenMapa" pickOnBounds="true">
-                                       <image>
-                                          <Image url="@../../../MapaDemo/src/resources/upv.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </Pane>
+                              <ImageView fx:id="imagenMapa" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../resources/upv.jpg" />
+                                 </image>
+                              </ImageView>
                            </children>
-                        </Group>
+                        </Pane>
                      </content>
                   </ScrollPane>
                </items>
@@ -60,12 +52,12 @@
                <menus>
                   <Menu mnemonicParsing="false" text="Ayuda">
                      <items>
-                        <MenuItem mnemonicParsing="false"  text="Acerca de" />
+                        <MenuItem mnemonicParsing="false" text="Acerca de" />
                      </items>
                   </Menu>
                </menus>
             </MenuBar>
-            <Button mnemonicParsing="false"  text="Cambiar mapa" />
+            <Button mnemonicParsing="false" text="Cambiar mapa" />
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
