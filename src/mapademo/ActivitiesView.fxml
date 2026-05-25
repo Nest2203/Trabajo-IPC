@@ -32,10 +32,10 @@
             <Button mnemonicParsing="false" onAction="#handleBorrar" styleClass="boton-estandar" text="Borrar" />
          </children>
       </HBox>
-      <Label text="Label" />
+      <Label text="Total" />
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <TitledPane animated="false" text="untitled">
+            <TitledPane animated="false" text="Actividades">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
