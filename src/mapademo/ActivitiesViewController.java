@@ -193,6 +193,7 @@ public class ActivitiesViewController implements Initializable {
                 System.out.println(" ERROR: La base de datos de actividades está completamente vacía.");
             }
 
+            tuControlador.setEscenaAnterior(tabla.getScene());
             javafx.stage.Stage stage = (javafx.stage.Stage) tabla.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(tuVista));
             stage.show();

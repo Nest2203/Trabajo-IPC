@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package mapademo;
 
 import java.io.File;
@@ -53,11 +50,7 @@ import upv.ipc.sportlib.MapRegion;
 import upv.ipc.sportlib.SportActivityApp;
 import upv.ipc.sportlib.TrackPoint;
 
-/**
- * FXML Controller class
- *
- * @author saulnolla
- */
+
 public class VistaRutaController implements Initializable {
 
     @FXML
@@ -93,10 +86,12 @@ public class VistaRutaController implements Initializable {
     private Pane mapPane;
     private ContextMenu mapContextMenu;
     private boolean insertionMode = false;
+    private javafx.scene.Scene escenaAnterior;
 
-    /**
-     * Initializes the controller class.
-     */
+    public void setEscenaAnterior(javafx.scene.Scene escena) {
+        this.escenaAnterior = escena;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (zoom_slider != null) {
@@ -140,7 +135,17 @@ public class VistaRutaController implements Initializable {
             if (lblDesnivelneg != null) lblDesnivelneg.setText("-" + String.format("%.0f m", activity.getElevationLoss()));
 
             MapRegion region = activity.getSuggestedMap();
+            if (region == null || region.getImagePath() == null) {
+                throw new Exception("Región o ruta nula");
+            }
             File imgFile = new File(region.getImagePath());
+            if (!imgFile.exists()) {
+                String nombreArchivo = imgFile.getName();
+                imgFile = new File("maps/" + nombreArchivo);
+                if (!imgFile.exists()) {
+                    imgFile = new File("maps/maps/" + nombreArchivo);
+                }
+            }
 
             
             Image img = new Image(imgFile.toURI().toString());
@@ -403,17 +408,10 @@ public class VistaRutaController implements Initializable {
 
     @FXML
     private void irAtras(ActionEvent event) {
-        try {
-            
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-            javafx.scene.Parent root = loader.load();
-            
+        if (escenaAnterior != null && zoom_slider != null && zoom_slider.getScene() != null) {
             javafx.stage.Stage stage = (javafx.stage.Stage) zoom_slider.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root));
+            stage.setScene(escenaAnterior);
             stage.show();
-        } catch (java.io.IOException e) {
-            System.out.println(" Error al volver al menú principal: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }
