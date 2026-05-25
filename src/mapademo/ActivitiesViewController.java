@@ -63,6 +63,7 @@ public class ActivitiesViewController implements Initializable {
                 handleActividadSeleccionada(nuevo);
             }
         });
+        tabla.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
     
     @FXML
