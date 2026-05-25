@@ -44,12 +44,14 @@ public class ActivitiesViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         listaActividades = FXCollections.observableArrayList();
         
         columaNombre.setCellValueFactory(data -> data.getValue().nameProperty());
         columnaDistancia.setCellValueFactory(data -> data.getValue().distanceProperty().asObject());
         
         tabla.setItems(listaActividades);
+        
         actualizarEstadisticas();
         
         if (miBarraError != null) {
@@ -157,31 +159,40 @@ public class ActivitiesViewController implements Initializable {
     private void abrirMapa(ActionEvent event) {
         
         SessionActivity actividadSeleccionada = tabla.getSelectionModel().getSelectedItem();
-      
+       
         if (actividadSeleccionada == null) {
             System.out.println("Por favor, selecciona una actividad primero.");
             return; 
         }
+        
 
         try {
-            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("VistaRuta.fxml"));
             Parent tuVista = loader.load();
-
-            
             VistaRutaController tuControlador = loader.getController();
             
             
             Activity actividadOficial = null;
             for (Activity a : SportActivityApp.getInstance().getUserActivities()) {
-            if (a.getName().equals(actividadSeleccionada.getName())) {
-            actividadOficial = a;
-            break;
-        }
-    }
-    if (actividadOficial != null) {
-        tuControlador.mostrarActividadEnMapa(actividadOficial);
-    }
+                if (a.getName().equals(actividadSeleccionada.getName())) {
+                    actividadOficial = a;
+                    break;
+                }
+            }
+
+            
+            if (actividadOficial == null && !SportActivityApp.getInstance().getUserActivities().isEmpty()) {
+                int ultima = SportActivityApp.getInstance().getUserActivities().size() - 1;
+                actividadOficial = SportActivityApp.getInstance().getUserActivities().get(ultima);
+            }
+
+            
+            if (actividadOficial != null) {
+                tuControlador.mostrarActividadEnMapa(actividadOficial);
+            } else {
+                System.out.println(" ERROR: La base de datos de actividades está completamente vacía.");
+            }
+
             javafx.stage.Stage stage = (javafx.stage.Stage) tabla.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(tuVista));
             stage.show();
@@ -190,5 +201,5 @@ public class ActivitiesViewController implements Initializable {
             System.out.println("Error al cargar la pestaña de la ruta: " + e.getMessage());
             e.printStackTrace();
         }
-    }
+}
 }
